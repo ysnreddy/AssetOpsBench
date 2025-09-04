@@ -192,6 +192,7 @@ SKYSPARK_PASSWORD=
 SKYSPARK_URL=
 
 OPENAI_API_KEY=
+HF_APIKEY=
 ```
 
 ### Notes
@@ -226,7 +227,7 @@ Now we run the following command,
 
 ```commandline
 cd /path/to/AssetOpsBench
-chmod +x benchmark/cods_track1/entrypoint_track_1.sh
+chmod +x benchmark/cods_track1/entrypoint.sh
 docker-compose -f benchmark/docker-compose.yml up
 ```
 
@@ -234,7 +235,31 @@ You can use [.env](https://github.com/IBM/AssetOpsBench/blob/main/benchmark/.env
 
  Note that in `entrypoint.sh`, we activate the python environment by `conda activate assetopsbench` first.
 
+### Local Testing for a Specific Utterance ID:
 
+Once the environment varibales are added to .env file, go to “entrypoint.sh”, and add the utterance ids you want to test for in the following line.
+
+```commandline
+
+python /home/run_track_1.py --utterance_ids <id_no>
+```
+
+Please make sure you are adding more than one utterance_id then they are separated by “,”. Also provide one id at a time for fast response. Now, we run: 
+
+```commandline
+chmod +x benchmark/cods_track1/entrypoint.sh
+docker-compose -f benchmark/docker-compose.yml up
+```
+You should be seeing the responses in a minute in the terminal. 
+
+### Testing Your modified Submission File:
+
+You can only see whether your modified submission file is compiling or not and producing responsed or not. You can not generate evalution scores locally. Those will be generated once you submit the submission file to codabench platform. Usually you should be able to see the evaluation results of your script after 18-24 Hrs from submission. Participant has to download the file named “track1_planning.py” from the codabench competition page, modify the content and then need to move the file the “cods_track1” folder in your local machine and rename it as run_track_1.py(Basically replacing existing “run_track_1.py”) with the modified version. If we want to change or test for specific utterance ids, we can follow the same procedure as given above in "Local Testing for a Specific Utterance ID". Once the modifications are completed, We run:
+
+```commandline
+chmod +x benchmark/cods_track1/entrypoint.sh
+docker-compose -f benchmark/docker-compose.yml up
+```
 
 ## 5. References
 
